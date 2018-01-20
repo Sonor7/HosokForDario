@@ -1,7 +1,17 @@
 package com.company;
 
+import com.company.Misc.SimpleSqlConnector;
+
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
+/* DARIOPATCH
+Átgondolni, hogy mi legyen az autoequippel. Az interface miatt már könnyen lehet, hogy teljesen máshogy kell megoldani. Weapontól független a lekérés
+ezért könnyen lehet h nem kell se az addWeapon se sok más.
+
+fix class equipper and the new weapon based class.
+
+ */
+
 
 /*More interesting mobs
 *THERE CAN BE ONLY ONE SKELETON
@@ -35,18 +45,18 @@ public class Main {//ANSI CODES
             new Main().Builder(); //Reading in text //Building champ values and loading them in
             new StatUpdate().HealUp();
         }
-        while (BuildChamp.CurrentHealth > 0 && CharacterIsALive == true) {//Itt folyik a játék tulajdonképp
+        while (Champion.getCurrentHealth() > 0 && CharacterIsALive == true) {//Itt folyik a játék tulajdonképp
             try {
                 TimeUnit.SECONDS.sleep(3);
             } catch (java.lang.InterruptedException ex) {
                 Thread.currentThread().interrupt();
             }
             new Sets().Randomizer(); //Randomize the setting you appear in
-            //Randomize an enemy and fight
+            //Randomize an enemy and Fight
             new Main().afterFight();
 
         }
-        new DBUpdaters().afterChampDeath(BuildChamp.ChampName);
+        new DBUpdaters().afterChampDeath(Champion.getChampName());
     }
 
     public void Builder() {
@@ -56,19 +66,19 @@ public class Main {//ANSI CODES
         ChampChoice = ChampReader.nextInt();
         if (ChampChoice == 1) {
             System.out.println("You have chosen the Barbarian");
-            BuildChamp.ChampClass = "Barbarian";
+            Champion.setChampClass("Barbarian");
             new BuildChamp(ChampChoice);
-            new DBUpdaters().champClassUpdater(BuildChamp.ChampClass);
+            new DBUpdaters().champClassUpdater(Champion.getChampClass());
         } else if (ChampChoice == 2) {
             System.out.println("You have chosen the Necromancer");
-            BuildChamp.ChampClass = "Necromancer";
+            Champion.setChampClass("Necromancer");
             new BuildChamp(ChampChoice);
-            new DBUpdaters().champClassUpdater(BuildChamp.ChampClass);
+            new DBUpdaters().champClassUpdater(Champion.getChampClass());
         } else if (ChampChoice == 3) {
             System.out.println("You have chosen the Ranger");
-            BuildChamp.ChampClass = "Ranger";
+            Champion.setChampClass("Ranger");
             new BuildChamp(ChampChoice);
-            new DBUpdaters().champClassUpdater(BuildChamp.ChampClass);
+            new DBUpdaters().champClassUpdater(Champion.getChampClass());
         } else {
             System.out.println("Please choose a number between 1 and 3");
         }
@@ -79,12 +89,12 @@ public class Main {//ANSI CODES
             if (previousCharLoaded == false) { //if we didn't load the champ in the first place
                 new SimpleSqlConnector().Connect(); //we create it
             } else {//OR
-                new SimpleSqlConnector().Connect(BuildChamp.ChampName);//we update it based on the name
+                new SimpleSqlConnector().Connect(Champion.getChampName());//we update it based on the name
             }
             return;
         }//If he dies he dies, if he wins he wins
         new Inventory().AutoEquip();//ez miért is nem fut le ha halott?
-        StatUpdate.emergencyHealUp(BuildChamp.CurrentHealth);
+        StatUpdate.emergencyHealUp(Champion.getCurrentHealth());
         Ascend.ReadyToLevel();
     }
 }

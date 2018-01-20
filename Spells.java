@@ -21,21 +21,21 @@ public class Spells {
    */    else {System.out.println("Wrong spell name");}
     }
     static void curse(){
-        int damage = BuildChamp.ChampionLevel + BuildChamp.TotalDamage*2;
+        int damage = Champion.getChampionLevel() + Champion.getTotalDamage()*2;
         MobRandomizer.EnemyCurrentHealth = MobRandomizer.EnemyCurrentHealth - damage;
         System.out.println("You extend your left hand and curse the "+MobRandomizer.MobName +" for "+damage+" damage");
 
     }
     static void siphonLife(){
-        int siphoned = BuildChamp.ChampionLevel + BuildChamp.TotalDamage;
+        int siphoned = Champion.getChampionLevel() + Champion.getTotalDamage();
         MobRandomizer.EnemyCurrentHealth = MobRandomizer.EnemyCurrentHealth - siphoned;
-        BuildChamp.CurrentHealth = BuildChamp.CurrentHealth + BuildChamp.ChampionLevel + siphoned;
+        Champion.setCurrentHealth(Champion.getCurrentHealth() + Champion.getChampionLevel() + siphoned);
         System.out.println("You extend your left hand and sphifon the life out of the "+MobRandomizer.MobName+" for "+siphoned+" and heal yourself with it");
 
     }
     static void summonSkeleton(){
         System.out.println("You summon your trusty skeleton");
-        Spells.petExistence = 3 + BuildChamp.ChampionLevel;
+        Spells.petExistence = 3 + Champion.getChampionLevel();
         //create skeleton object (use regular skelly)
         new Pet("Skeleton",10,10,10);
         //for x next turn

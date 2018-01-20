@@ -1,7 +1,8 @@
 package com.company;
 
+import com.company.Misc.SimpleSqlConnector;
+
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -10,7 +11,7 @@ public class DBUpdaters {
         Connection connection = new SimpleSqlConnector().ConnectionPlus();
         try {
             Statement statement = connection.createStatement();
-            statement.executeUpdate("INSERT INTO hos(class) VALUES ('"+BuildChamp.ChampClass+"')");
+            statement.executeUpdate("INSERT INTO hos(class) VALUES ('"+champClass+"')");
             connection.close();
         }catch (java.sql.SQLException e){System.out.println(e);}
     }
@@ -18,7 +19,7 @@ public class DBUpdaters {
         Connection connection = new SimpleSqlConnector().ConnectionPlus();
         try {
             Statement statement = connection.createStatement();
-            statement.executeUpdate("update hos set DeadEnemyCounter = '"+DeadEnemyCounter+"' where ChampName = '"+BuildChamp.ChampName+"'");
+            statement.executeUpdate("update hos set DeadEnemyCounter = '"+DeadEnemyCounter+"' where ChampName = '"+Champion.getChampName()+"'");
             connection.close();
         }catch (java.sql.SQLException e){System.out.println(e);}
     }
@@ -83,28 +84,28 @@ public class DBUpdaters {
                 "\nHealthModifier= "+healthModifiersVar+"\nWeaponHitChanceModifier= "+weaponHitChanceModifierVar+"\nWeaponCritChanceModifier= "+weaponCritChanceModifierVar+"\nWeaponCritDamageModifier= "+weaponCritDamageModifierVar+"\nTotalDamage= "+totalDamageVar+
                         "\nTotalDefence= "+totalDefenceVar+"\nTotalHealth= "+totalHealthVar+"\nTotalHitChanceVar= "+totalHitChanceVar+"\nTotalCritChanceVar= "+totalCritChanceVar+"\nChampClass = "+champClassVar+"\nDeadEnemyCounter= "+deadEnemyCounterVar);
 
-                BuildChamp.XP = xPVar;
-                BuildChamp.BaseDefence = baseDefenceVar;
-                BuildChamp.BaseDamage = baseDamageVar;
-                BuildChamp.BaseArmor = baseArmorVar;
-                BuildChamp.BaseHitChance = baseHitChanceVar;
-                BuildChamp.BaseHealth = baseHealthVar;
-                BuildChamp.MaxHealth = maxHealthVar;
-                BuildChamp.ChampionLevel = championLevelVar;
-                BuildChamp.CurrentHealth = currentHealthVar;
-                BuildChamp.WeaponDamageModifier = weaponDamageModifierVar;
-                BuildChamp.ArmorModifier = armorModifierVar;
-                BuildChamp.HealthModifiers = healthModifiersVar;
-                BuildChamp.WeaponHitChanceModifier = weaponHitChanceModifierVar;
-                BuildChamp.WeaponCritChanceModifier = weaponCritChanceModifierVar;
-                BuildChamp.WeaponDamageModifier = weaponCritDamageModifierVar;
-                BuildChamp.TotalDamage = totalDamageVar;
-                BuildChamp.TotalDefence = totalDefenceVar;
-                BuildChamp.TotalCritChance = totalCritChanceVar;
-                BuildChamp.TotalHitChance = totalHitChanceVar;
-                BuildChamp.ChampClass = champClassVar;
+                Champion.setXP(xPVar);
+                Champion.setBaseDefence(baseDefenceVar);
+                Champion.setBaseDamage(baseDamageVar);
+                Champion.setBaseArmor(baseArmorVar);
+                Champion.setBaseHitChance(baseHitChanceVar);
+                Champion.setBaseHealth(baseHealthVar);
+                Champion.setMaxHealth(maxHealthVar);
+                Champion.setChampionLevel(championLevelVar);
+                Champion.setCurrentHealth(currentHealthVar);
+                Champion.setWeaponDamageModifier(weaponDamageModifierVar);
+                Champion.setArmorModifier(armorModifierVar);
+                Champion.setHealthModifiers(healthModifiersVar);
+                Champion.setWeaponHitChanceModifier(weaponHitChanceModifierVar);
+                Champion.setWeaponCritChanceModifier(weaponCritChanceModifierVar);
+                Champion.setWeaponDamageModifier(weaponCritDamageModifierVar);
+                Champion.setTotalDamage(totalDamageVar);
+                Champion.setTotalDefence(totalDefenceVar);
+                Champion.setTotalCritChance(totalCritChanceVar);
+                Champion.setTotalHitChance(totalHitChanceVar);
+                Champion.setChampClass(champClassVar);
                 Fight.DeadEnemyCounter = deadEnemyCounterVar;
-                BuildChamp.ChampName = ChampNameVar;
+                Champion.setChampName(ChampNameVar);
             }
         }
         catch (java.sql.SQLException e){System.out.println(e);}
@@ -113,7 +114,7 @@ public class DBUpdaters {
         Connection connection = new SimpleSqlConnector().ConnectionPlus();
         try{
             Statement statement = connection.createStatement();
-            statement.executeUpdate("update hos set CurrentHealth = '"+BuildChamp.MaxHealth+"' WHERE ChampName = '"+existingChampName+"'");
+            statement.executeUpdate("update hos set CurrentHealth = '"+Champion.getMaxHealth()+"' WHERE ChampName = '"+existingChampName+"'");
             //This is where the death counter will be
             //statement.executeUpdate("update hos set CurrentHealth = '"+BuildChamp.MaxHealth+"' WHERE ChampName = '"+existingChampName+"'");
             connection.close();

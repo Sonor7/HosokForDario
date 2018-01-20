@@ -3,10 +3,10 @@ package com.company;
 class StatUpdate {
     void WeaponUpdate(){
         //PC
-        BuildChamp.TotalDamage = BuildChamp.BaseDamage + BuildChamp.WeaponDamageModifier;//BaseDamage + WeaponDamageModifier;
-        BuildChamp.TotalDefence = BuildChamp.BaseDefence;// BaseDefence + ArmorModifier;
-        BuildChamp.TotalHitChance = BuildChamp.BaseHitChance + BuildChamp.WeaponHitChanceModifier;// BaseHitChance + WeaponHitChanceModifier;
-        BuildChamp.TotalCritChance = BuildChamp.BaseCritChance + BuildChamp.WeaponCritChanceModifier;// BaseCritChance + WeaponCritChanceModifier;
+        Champion.setTotalDamage(Champion.getBaseDamage() + Champion.getWeaponDamageModifier());//BaseDamage + WeaponDamageModifier;
+        Champion.setTotalDefence(Champion.getBaseDefence());// BaseDefence + ArmorModifier;
+        Champion.setTotalHitChance(Champion.getBaseHitChance() + Champion.getWeaponHitChanceModifier()) ;// BaseHitChance + WeaponHitChanceModifier;
+        Champion.setTotalCritChance(Champion.getBaseCritChance() + Champion.getWeaponCritChanceModifier());// BaseCritChance + WeaponCritChanceModifier;
 
         //Mob
         MobRandomizer.EnemyTotalDamage = MobRandomizer.EnemyBaseDamage;//BaseDamage + WeaponDamageModifier;
@@ -16,11 +16,11 @@ class StatUpdate {
         MobRandomizer.EnemyTotalCritChance = MobRandomizer.EnemyBaseCritChance;// BaseCritChance + WeaponCritChanceModifier;
     }
     static void HealUp(){
-        BuildChamp.CurrentHealth = BuildChamp.MaxHealth;// BaseHealth + HealthModifiers;
+        Champion.setCurrentHealth(Champion.getMaxHealth());// BaseHealth + HealthModifiers;
     }
     static void emergencyHealUp(int currentHealth){
         Double emergencyBar = 0.3;
-        Double emergency = BuildChamp.MaxHealth * emergencyBar;
+        Double emergency = Champion.getMaxHealth() * emergencyBar;
         int emergencyLevel = emergency.intValue();
 
         if (currentHealth < emergencyLevel){

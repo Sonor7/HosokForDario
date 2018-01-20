@@ -1,6 +1,8 @@
 package com.company;
 
-public class Inventory {
+import com.company.WeaponList.BronzeSword;
+
+public class Inventory implements Weapons {
     public static boolean WeaponEquipped = false;
     public static int ClubAmount;
     public static int BronzeSwordAmount;
@@ -21,10 +23,33 @@ public class Inventory {
     public static boolean GlassBowEquipped = false;
     public static boolean WoodStaffEquipped = false;
     public static boolean EbonyStaffEquipped = false;
+
+    @Override
+    public int getDamage() { return Champion.getInstance().getEquippedWeapon().getDamage();
+    }
+
+    @Override
+    public int getCrit() { return Champion.getInstance().getEquippedWeapon().getCrit();
+    }
+
+    @Override
+    public int getCritDmgModifier() {
+        return Champion.getInstance().getEquippedWeapon().getCritDmgModifier();
+    }
+
+    @Override
+    public int getWeaponLevel() {
+        return Champion.getInstance().getEquippedWeapon().getWeaponLevel();
+    }
+
+    @Override
+    public String getWeaponName() { return Champion.getInstance().getEquippedWeapon().getWeaponName();
+    }
+
     //Add Items to use
     void AddClub(){
             if (ClubAmount > 0) {
-                new Weapons().Club();
+                addWeapon();
                 ClubAmount--;
                 ClubEquipped = true;
             }
@@ -32,7 +57,7 @@ public class Inventory {
     }
     void AddBronzeSword(){
         if (BronzeSwordAmount > 0) {
-            new Weapons().BronzeSword();
+            addWeapon();
             BronzeSwordAmount--;
             BronzeSwordEquipped = true;
         }
@@ -40,14 +65,14 @@ public class Inventory {
     }
     void AddSteelSword(){
         if (SteelSwordAmount > 0) {
-            new Weapons().SteelSword();
+            addWeapon();
             SteelSwordAmount--;
             SteelSwordEquipped = true;
         }
     }
     void AddDagger(){
         if (DaggerAmount > 0) {
-            new Weapons().Dagger();
+            addWeapon();
             DaggerAmount--;
             DaggerEquipped = true;
         }
@@ -55,7 +80,7 @@ public class Inventory {
     }
     void AddWoodStaff(){
         if (WoodStaffAmount > 0) {
-            new Weapons().Dagger();
+            addWeapon();
             WoodStaffAmount--;
             WoodStaffEquipped = true;
         }
@@ -63,7 +88,7 @@ public class Inventory {
     }
     void AddEbonyStaff(){
         if (EbonyStaffAmount > 0) {
-            new Weapons().Dagger();
+            addWeapon();
             EbonyStaffAmount--;
             EbonyStaffEquipped = true;
         }
@@ -71,7 +96,7 @@ public class Inventory {
     }
     void AddWoodBow(){
         if (WoodBowAmount > 0) {
-            new Weapons().WoodenBow();
+            addWeapon();
             WoodBowAmount--;
             WoodBowEquipped = true;
         }
@@ -79,7 +104,7 @@ public class Inventory {
     }
     void AddEbonyBow(){
         if (EbonyBowAmount > 0) {
-            new Weapons().EbonyBow();
+            addWeapon();
             EbonyBowAmount--;
             EbonyBowEquipped = true;
         }
@@ -87,7 +112,7 @@ public class Inventory {
     }
     void AddGlassBow(){
         if (GlassBowAmount > 0) {
-            new Weapons().GlassBow();
+            addWeapon();
             GlassBowAmount--;
             GlassBowEquipped = true;
         }
@@ -95,73 +120,46 @@ public class Inventory {
     }
     //Remove Items
     void RemoveClub(){if (ClubEquipped == true){
-        BuildChamp.WeaponDamageModifier = 0;
-        BuildChamp.WeaponCritChanceModifier = 0;
-        BuildChamp.WeaponCritDamageModifier = 0;
+        removeWeapon();
         ClubEquipped = false;
-        WeaponEquipped = false;
     }}
     void RemoveBronzeSword(){ if (BronzeSwordEquipped == true) {
-        BuildChamp.WeaponDamageModifier = 0;
-        BuildChamp.WeaponCritChanceModifier = 0;
-        BuildChamp.WeaponCritDamageModifier = 0;
+        removeWeapon();
         BronzeSwordEquipped = false;
-        WeaponEquipped = false;
     }}
     void RemoveSteelSword(){if (SteelSwordEquipped == true) {
-        BuildChamp.WeaponDamageModifier = 0;
-        BuildChamp.WeaponCritChanceModifier = 0;
-        BuildChamp.WeaponCritDamageModifier = 0;
+        removeWeapon();
         SteelSwordEquipped = false;
-        WeaponEquipped = false;
     }}
     void RemoveDagger(){if (DaggerEquipped == true) {
-        BuildChamp.WeaponDamageModifier = 0;
-        BuildChamp.WeaponCritChanceModifier = 0;
-        BuildChamp.WeaponCritDamageModifier = 0;
+        removeWeapon();
         DaggerEquipped = false;
-        WeaponEquipped = false;
     }}
     void RemoveWoodStaff(){if (WoodStaffEquipped == true) {
-        BuildChamp.WeaponDamageModifier = 0;
-        BuildChamp.WeaponCritChanceModifier = 0;
-        BuildChamp.WeaponCritDamageModifier = 0;
+        removeWeapon();
         WoodStaffEquipped = false;
-        WeaponEquipped = false;
     }}
     void RemoveEbonyStaff(){if (EbonyStaffEquipped == true) {
-        BuildChamp.WeaponDamageModifier = 0;
-        BuildChamp.WeaponCritChanceModifier = 0;
-        BuildChamp.WeaponCritDamageModifier = 0;
+        removeWeapon();
         EbonyStaffEquipped = false;
-        WeaponEquipped = false;
     }}
     void RemoveWoodBow(){if (WoodBowEquipped == true) {
-        BuildChamp.WeaponDamageModifier = 0;
-        BuildChamp.WeaponCritChanceModifier = 0;
-        BuildChamp.WeaponCritDamageModifier = 0;
+        removeWeapon();
         WoodBowEquipped = false;
-        WeaponEquipped = false;
     }}
     void RemoveEbonyBow(){if (EbonyBowEquipped == true) {
-        BuildChamp.WeaponDamageModifier = 0;
-        BuildChamp.WeaponCritChanceModifier = 0;
-        BuildChamp.WeaponCritDamageModifier = 0;
+        removeWeapon();
         EbonyBowEquipped = false;
-        WeaponEquipped = false;
     }}
     void RemoveGlassBow(){if (GlassBowEquipped == true) {
-        BuildChamp.WeaponDamageModifier = 0;
-        BuildChamp.WeaponCritChanceModifier = 0;
-        BuildChamp.WeaponCritDamageModifier = 0;
+        removeWeapon();
         GlassBowEquipped = false;
-        WeaponEquipped = false;
     }}
 //Két osztály kell, ami eldönti h az új fegyver jobb-e, és a másik ami felteszi
     void AutoEquip() {
-        if (WeaponEquipped == true && Weapons.NextWeaponLevel > Weapons.WeaponLevel) {//itt dől el h jobb-e a fegyver
-        String EquippedWeapon = WhatIsEquipped();
-        switch (EquippedWeapon){
+        if (WeaponEquipped == true && Fight.nextWeaponLevel > Fight.weaponLevel) {//itt dől el h jobb-e a fegyver
+        String equippedWeapon = getWeaponName() ;
+        switch (equippedWeapon){ //Removes the currently equipped weapon
             case "Club": RemoveClub();break;
             case "BronzeSword": RemoveBronzeSword();break;
             case "SteelSword": RemoveSteelSword();break;
@@ -173,12 +171,12 @@ public class Inventory {
             case "EbonyStaff":RemoveEbonyStaff();break;
         }
         }
-        if (WeaponEquipped == false) {
+        if (WeaponEquipped == false) { //starts the equip process
             BarbEquipper();
             NecromancerEquipper();
             RangerEquipper();
-        }
-    } //equips weapons that are found
+        } //equips weapons that are found
+    }
     String WhatIsEquipped(){
         String WhatIsEquipped = "empty";
         if (WeaponEquipped == true){
@@ -226,7 +224,8 @@ public class Inventory {
                 WeaponEquipped = true;
             }
         }}
-        void RangerEquipper(){            if (Main.ChampChoice == 3) {
+        void RangerEquipper(){
+            if (Main.ChampChoice == 3) {
             if (WoodBowAmount > 0 && WoodBowEquipped == false) {
                 AddWoodBow();
                 WeaponEquipped = true;
@@ -245,5 +244,25 @@ public class Inventory {
                 }
             }
         }
+
+        void removeWeapon(){
+            Champion.setWeaponDamageModifier(0);
+            Champion.setWeaponCritChanceModifier(0);
+            Champion.setWeaponCritDamageModifier(0);
+            WeaponEquipped = false;
+        }
+
+        void addWeapon(){
+            Champion.getInstance().equipWeapon();
+
+            int dmgToAdd = getDamage();
+            int critToAdd = getCrit();
+            int critModToADD = getCritDmgModifier();
+
+            Champion.setWeaponDamageModifier(dmgToAdd);
+            Champion.setWeaponCritChanceModifier(critToAdd);
+            Champion.setWeaponDamageModifier(critModToADD);
+        }
+
 }
 
